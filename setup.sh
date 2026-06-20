@@ -9,9 +9,6 @@ sudo apt install git -y
 sudo apt install curl -y
 sudo apt install nano -y
 
-# 检测并添加虚拟内存
-chmod +x /root/v2bx-scr/swap.sh && /root/warp-scr/swap.sh
-
 # 网络调优
 CONF="/etc/sysctl.conf"
 
