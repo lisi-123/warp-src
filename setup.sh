@@ -62,7 +62,7 @@ sysctl --system
 sudo timedatectl set-timezone Asia/Shanghai
 
 # 安装warp并设置本地socks5代理
-wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh <<< $'2\n5\n1\n1\n40000\n'
+wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh <<< $'2\n12\n1\n1\n40000\n'
 
 # 限制warp内存占用
 sudo mkdir -p /etc/systemd/system/warp-svc.service.d && echo -e "[Service]\nMemoryMax=150M" | sudo tee /etc/systemd/system/warp-svc.service.d/override.conf
@@ -70,8 +70,8 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl restart warp-svc
 
-# 添加定时任务（每2分钟检测warp状态，自动清理vps日志，凌晨4:30重启warp-svc）
-CRON_JOB2='*/2 * * * * /root/warp-scr/socks5-check.sh'
+# 添加定时任务（每分钟检测warp状态，自动清理vps日志，凌晨4:30重启warp-svc）
+CRON_JOB2='*/1 * * * * /root/warp-scr/socks5-check.sh'
 CRON_JOB3='0 5 * * * /root/warp-scr/clean_logs.sh'
 CRON_JOB4='30 4 * * * systemctl restart warp-svc'
 
