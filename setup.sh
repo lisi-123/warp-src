@@ -9,6 +9,18 @@ sudo apt install git -y
 sudo apt install curl -y
 sudo apt install nano -y
 
+# 拉取库
+until git clone https://github.com/lisi-123/warp-socks5.git; do
+  echo "git clone 失败，3 秒后重试..."; sleep 3;
+done
+
+# 赋予可执行权限
+chmod +x /root/warp-socks5/socks5-check.sh
+chmod +x /root/warp-socks5/clean_logs.sh
+
+# 检测并添加虚拟内存
+chmod +x /root/warp-socks5/swap.sh && /root/warp-socks5/swap.sh
+
 # 网络调优
 CONF="/etc/sysctl.conf"
 
@@ -54,8 +66,8 @@ wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh <<< 
 
 # 添加定时任务（凌晨4:30重启v2node，每5分钟检测warp状态，自动清理vps日志）
 CRON_JOB1='30 4 * * * /usr/bin/v2node restart'
-CRON_JOB2='*/5 * * * * /root/v2bx-scr/socks5-check.sh'
-CRON_JOB3='0 5 * * * /root/v2bx-scr/clean_logs.sh'
+CRON_JOB2='*/5 * * * * /root/warp-socks5/socks5-check.sh'
+CRON_JOB3='0 5 * * * /root/warp-socks5/clean_logs.sh'
 
 # 将任务添加到 crontab 并避免重复
 (crontab -l 2>/dev/null; echo "$CRON_JOB1"; echo "$CRON_JOB2"; echo "$CRON_JOB3") | sort -u | crontab -
