@@ -11,10 +11,11 @@ apt-get install wget -y && wget -O setup.sh https://raw.githubusercontent.com/li
 <br>
 
 
-执行 warp 唤起warp管理面板
+执行 warp 可唤起warp管理面板
 
+<br>
 
-
+路由中的socks5填写：
 
 ```bash
  {
