@@ -64,9 +64,9 @@ sudo timedatectl set-timezone Asia/Shanghai
 # 安装warp并设置本地socks5代理
 wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh <<< $'2\n12\n40000\n'
 
-# 添加定时任务（凌晨4:30重启v2node，每5分钟检测warp状态，自动清理vps日志）
+# 添加定时任务（凌晨4:30重启v2node，每3分钟检测warp状态，自动清理vps日志）
 CRON_JOB1='30 4 * * * /usr/bin/v2node restart'
-CRON_JOB2='*/5 * * * * /root/warp-socks5/socks5-check.sh'
+CRON_JOB2='*/3 * * * * /root/warp-socks5/socks5-check.sh'
 CRON_JOB3='0 5 * * * /root/warp-socks5/clean_logs.sh'
 
 # 将任务添加到 crontab 并避免重复
